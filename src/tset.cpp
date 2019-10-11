@@ -95,22 +95,9 @@ TSet TSet::operator+(const TSet &s) // объединение
 TSet TSet::operator+(const int Elem) // объединение с элементом
 {	
 	if ((Elem > -1) && (Elem < BitField.GetLength())) {
-		
-		/*BitField = BitField | Elem;
-		return *this;*/
-		TBitField E(Elem); //Битовое поле для Elem
-		TELEM mask = 1;
-		for (int i = 0; i < Elem; i++) {
-			mask = 1;
-			mask = mask << (i & 31);
-			if ((Elem & mask) != 0) { E.SetBit(i); cout << "done"; }
-		}
-		TSet E1(E);
-		TSet result(MaxPower);
-		E.SetBit(Elem);
-		result.BitField = BitField | E;
-		result = *this + E1;
-		return result;
+		TSet res(*this);
+		res.BitField.SetBit(Elem);
+		return res;
 	}
 	else throw - 1;
 }

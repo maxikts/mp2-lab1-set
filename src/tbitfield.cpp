@@ -117,7 +117,7 @@ TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 	if (bf.BitLen > len)len = bf.BitLen;
 	TBitField a(len);
 	for (int i = 0; i < MemLen; i++)a.pMem[i] = pMem[i];
-	for (int i = 0; i < len; i++)a.pMem[i] |= bf.pMem[i];
+	for (int i = 0; i < MemLen; i++)a.pMem[i] |= bf.pMem[i];
 
 	return a;
 }
@@ -128,7 +128,7 @@ TBitField TBitField::operator&(const TBitField &bf) // операция "и"
 	if (bf.BitLen > len)len = bf.BitLen;
 	TBitField a(len);
 	for (int i = 0; i < MemLen; i++)a.pMem[i] = pMem[i];
-	for (int i = 0; i < bf.BitLen; i++)a.pMem[i] &= bf.pMem[i];
+	for (int i = 0; i < MemLen; i++)a.pMem[i] &= bf.pMem[i];
 
 	return a;
 	
@@ -137,11 +137,11 @@ TBitField TBitField::operator&(const TBitField &bf) // операция "и"
 TBitField TBitField::operator~(void) // отрицание
 {
 	TBitField a(BitLen);
-	for (int i = 0; i < MemLen; i++) {
+	int cnt = (BitLen / 32);
 		for (int k = 0; k < BitLen; k++) {
 			if (GetBit(k) == 0) a.SetBit(k);
 			else a.ClrBit(k);
-		}
+		
 	}
 	return a;
 }
